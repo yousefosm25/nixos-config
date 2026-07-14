@@ -40,9 +40,9 @@
       bindkey -M vicmd ys add-surround
       bindkey -M visual S add-surround
       source ${pkgs.fzf}/share/fzf/key-bindings.zsh
-      fastfeatch
-      alias cl ='clear'
-      alias nv = 'nvim'
+      fastfetch
+      alias cl='clear'
+      alias nv='nvim'
     '';
 
   };
