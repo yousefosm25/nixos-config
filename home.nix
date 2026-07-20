@@ -1,8 +1,8 @@
 { config, pkgs, ... }:
 {
   imports = [
-    ./zsh.nix
-    ./neovim.nix
+    ./terminal/zsh.nix
+    ./terminal/neovim.nix
   ];
 
   home.username = "yousef";

@@ -22,7 +22,7 @@
 
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
-
+  programs.zsh.enable = true;
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -108,7 +108,7 @@
       kdePackages.kate
       #  thunderbird
     ];
-    
+    shell = pkgs.zsh;
   };
 
   # Install firefox.
