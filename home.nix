@@ -3,6 +3,7 @@
   imports = [
     ./terminal/zsh.nix
     ./terminal/neovim.nix
+    ./browsers-config/browser.nix
   ];
 
   home.username = "yousef";

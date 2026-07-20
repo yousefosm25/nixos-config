@@ -13,9 +13,14 @@
       url = "github:yousefosm25/nvim-config";
       flake = false;
     };
+    zen-browser = {
+      url = "github:youwen5/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
-  outputs = { self, nixpkgs, home-manager, nvim-config, ... }: {
+  outputs = { self, nixpkgs, home-manager, nvim-config, zen-browser, ... }: {
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
@@ -24,7 +29,7 @@
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.extraSpecialArgs = { inherit nvim-config; };
+          home-manager.extraSpecialArgs = { inherit nvim-config zen-browser; };
           home-manager.users.yousef = import ./home.nix;
         }
       ];
