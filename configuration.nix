@@ -126,7 +126,7 @@
     ghostty
     zsh
     direnv
-    nixfmt-rfc-style
+    nixfmt
     tree
     fzf
     fastfetch
@@ -134,7 +134,6 @@
     gcc
     gnumake
     nodejs
-    nixfmt-rfc-style
     starship
 
   ];
