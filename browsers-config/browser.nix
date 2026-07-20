@@ -5,6 +5,6 @@ let
 in
 {
   home.packages = [
-    (wrapFirefoxBrowser unwrapped)
+    #(wrapFirefoxBrowser unwrapped)
   ];
 }
