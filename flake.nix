@@ -3,7 +3,8 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
-
+    #nvf-config
+    nvf.url = "github:notashelf/nvf";
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -17,19 +18,27 @@
       url = "github:youwen5/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
   };
 
-  outputs = { self, nixpkgs, home-manager, nvim-config, zen-browser, ... }: {
+  outputs = {
+    nixpkgs,
+    home-manager,
+    nvim-config,
+    zen-browser,
+    nvf,
+    ...
+  } @ inputs: {
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
+      specialArgs = {inherit inputs;};
       modules = [
         ./configuration.nix
+        nvf.nixosModules.default
         home-manager.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.extraSpecialArgs = { inherit nvim-config zen-browser; };
+          home-manager.extraSpecialArgs = {inherit nvim-config zen-browser;};
           home-manager.users.yousef = import ./home.nix;
         }
       ];
