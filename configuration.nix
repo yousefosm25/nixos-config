@@ -136,6 +136,7 @@
     gcc
     gnumake
     nodejs
+    neovim
     starship
     inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];

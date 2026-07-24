@@ -3,6 +3,8 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
+    catppuccin.url = "github:catppuccin/nix/release-26.05";
+    lazyvim.url = "github:pfassina/lazyvim-nix";
     #nvf-config
     nvf.url = "github:notashelf/nvf";
     home-manager = {
@@ -10,10 +12,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nvim-config = {
-      url = "github:yousefosm25/nvim-config";
-      flake = false;
-    };
     zen-browser = {
       url = "github:youwen5/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -23,22 +21,32 @@
   outputs = {
     nixpkgs,
     home-manager,
-    nvim-config,
     zen-browser,
     nvf,
+    catppuccin,
+    lazyvim,
     ...
   } @ inputs: {
+#nvf-config
+    packages."x86_64-linux".default =
+      nvf.lib.neovimConfiguration {};
+
+
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = {inherit inputs;};
       modules = [
+        catppuccin.nixosModules.catppuccin
+
         ./configuration.nix
+
         nvf.nixosModules.default
+
         home-manager.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.extraSpecialArgs = {inherit nvim-config zen-browser;};
+          home-manager.extraSpecialArgs = {inherit  zen-browser lazyvim;};
           home-manager.users.yousef = import ./home.nix;
         }
       ];

@@ -1,10 +1,16 @@
-{ config, pkgs, ... }:
 {
+  config,
+  pkgs,
+  lazyvim,
+  ...
+}: {
   imports = [
+    
     ./terminal/zsh.nix
-    ./terminal/neovim.nix
-    ./browsers-config/browser.nix
+    ./terminal/nvim.nix
+   lazyvim.homeManagerModules.default
   ];
+  programs.lazyvim.enable = true;
 
   home.username = "yousef";
   home.homeDirectory = "/home/yousef";
