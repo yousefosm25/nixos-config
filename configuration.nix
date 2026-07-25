@@ -138,7 +138,9 @@
     nodejs
     neovim
     starship
+    python3
     inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
+    pyright 
   ];
 
   fonts.packages = with pkgs; [
@@ -148,8 +150,13 @@
   # enable direnv
   programs.direnv.enable = true;
 
-  # make zsh a default
-
+  # make nvim a default
+    programs.neovim = {
+    enable = true;
+    defaultEditor = true;
+    viAlias = true;
+    vimAlias = true;
+   };
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;

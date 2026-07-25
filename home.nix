@@ -8,7 +8,7 @@
     
     ./terminal/zsh.nix
     ./terminal/nvim.nix
-   lazyvim.homeManagerModules.default
+    lazyvim.homeManagerModules.default
   ];
   programs.lazyvim.enable = true;
 
