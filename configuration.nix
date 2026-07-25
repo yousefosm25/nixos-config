@@ -141,6 +141,7 @@
     python3
     inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
     pyright 
+    protonvpn
   ];
 
   fonts.packages = with pkgs; [
