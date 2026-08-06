@@ -5,6 +5,7 @@
   config,
   pkgs,
   inputs,
+  lib,
   ...
 }: {
   imports = [
@@ -21,7 +22,48 @@
     "nix-command"
     "flakes"
   ];
+  #for my GPU {
+    #first enable opengpl 
+    hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+    };
+    services.xserver.videoDrivers = ["nvidia"];
+    hardware.nvidia.modesetting.enable = true;
+    hardware.nvidia.open = true;
+    hardware.nvidia.powerManagement.enable = true;
+    #for may hyperied GPU for my laptop 
+    hardware.nvidia.prime = {
+      offload = {
+      enable = true;
+      enableOffloadCmd = true;
+      };
 
+    # integrated
+    # intelBusId = "PCI:0:0:0";
+    amdgpuBusId = "PCI:6:0:0";
+    
+    # dedicated
+    nvidiaBusId = "PCI:1:0:0";
+    };
+    # for gaming mode
+      
+    specialisation = {
+      gaming-time.configuration = {
+
+        hardware.nvidia = {
+          prime.sync.enable = lib.mkForce true;
+          prime.offload = {
+            enable = lib.mkForce false;
+            enableOffloadCmd = lib.mkForce false;
+          };
+        };
+
+      };
+    };
+
+
+  #}
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
   programs.zsh.enable = true;
@@ -31,7 +73,7 @@
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
+    networking.firewall.checkReversePath = false;
   # Enable networking
   networking.networkmanager.enable = true;
 
@@ -72,8 +114,9 @@
 
   # Configure keymap in X11
   services.xserver.xkb = {
-    layout = "us";
+    layout = "us,ara";
     variant = "";
+    options = "grp:win_space_toggle";
   };
 
   # Enable CUPS to print documents.
@@ -119,6 +162,13 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  # for install steam 
+  programs.steam.enable = true;
+  # for upscalling 
+  programs.steam.gamescopeSession.enable = true;
+  # for gamemood
+  programs.gamemode.enable = true;
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -141,7 +191,21 @@
     python3
     inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
     pyright 
-    protonvpn
+    proton-vpn
+    openvpn
+    mangohud
+    heroic
+    vlc
+    zoom-us
+    telegram-desktop
+    spotify
+    btop
+    nodejs
+    vscode-langservers-extracted
+    typescript-language-server
+    vtsls
+    tailwindcss-language-server
+    biome
   ];
 
   fonts.packages = with pkgs; [
