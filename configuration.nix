@@ -196,6 +196,7 @@
     mangohud
     heroic
     vlc
+    corefonts
     zoom-us
     telegram-desktop
     spotify
@@ -206,6 +207,126 @@
     vtsls
     tailwindcss-language-server
     biome
+    go
+    nixd
+    alejandra
+    vue-language-server
+    angular-language-server
+    SDL
+    SDL2
+    SDL2_image
+    SDL2_mixer
+    SDL2_ttf
+    SDL_image
+    SDL_mixer
+    SDL_ttf
+    alsa-lib
+    at-spi2-atk
+    at-spi2-core
+    atk
+    bzip2
+    cairo
+    cups
+    curlWithGnuTls
+    dbus
+    dbus-glib
+    desktop-file-utils
+    e2fsprogs
+    expat
+    flac
+    freeglut
+    freetype
+    fribidi
+    fuse
+    fuse3
+    gdk-pixbuf
+    glib
+    gmp
+    gst_all_1.gst-plugins-base
+    gst_all_1.gst-plugins-ugly
+    gst_all_1.gstreamer
+    gtk2
+    harfbuzz
+    icu
+    keyutils.lib
+    libGL
+    libGLU
+    libappindicator-gtk2
+    libcaca
+    libcanberra
+    libcap
+    libclang.lib
+    libdbusmenu
+    libdrm
+    libgcrypt
+    libgpg-error
+    libidn
+    libjack2
+    libjpeg
+    libmikmod
+    libogg
+    libpng12
+    libpulseaudio
+    librsvg
+    libsamplerate
+    libthai
+    libtheora
+    libtiff
+    libudev0-shim
+    libusb1
+    libuuid
+    libvdpau
+    libvorbis
+    libvpx
+    libxcrypt-legacy
+    libxkbcommon
+    libxml2
+    mesa
+    nspr
+    nss
+    openssl
+    p11-kit
+    pango
+    pixman
+    speex
+    stdenv.cc.cc
+    tbb
+    udev
+    vulkan-loader
+    wayland
+    glew_1_10
+    libice
+    libsm
+    libx11
+    libxscrnsaver
+    libxcomposite
+    libxcursor
+    libxdamage
+    libxext
+    libxfixes
+    libxft
+    libxi
+    libxinerama
+    libxmu
+    libxrandr
+    libxrender
+    libxt
+    libxtst
+    libxxf86vm
+    libpciaccess
+    libxcb
+    libxcb-util
+    libxcb-image
+    libxcb-keysyms
+    libxcb-render-util
+    libxcb-wm
+    xkeyboard-config
+    xz
+    zlib
+    onlyoffice-desktopeditors
+    golangci-lint
+    lmstudio
+     
   ];
 
   fonts.packages = with pkgs; [
