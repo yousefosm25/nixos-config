@@ -7,7 +7,8 @@
   inputs,
   lib,
   ...
-}: {
+}:
+{
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -23,47 +24,46 @@
     "flakes"
   ];
   #for my GPU {
-    #first enable opengpl 
-    hardware.graphics = {
+  #first enable opengpl
+  hardware.graphics = {
     enable = true;
     enable32Bit = true;
-    };
-    services.xserver.videoDrivers = ["nvidia"];
-    hardware.nvidia.modesetting.enable = true;
-    hardware.nvidia.open = true;
-    hardware.nvidia.powerManagement.enable = true;
-    #for may hyperied GPU for my laptop 
-    hardware.nvidia.prime = {
-      offload = {
+  };
+  services.xserver.videoDrivers = [ "nvidia" ];
+  hardware.nvidia.modesetting.enable = true;
+  hardware.nvidia.open = true;
+  hardware.nvidia.powerManagement.enable = true;
+  #for may hyperied GPU for my laptop
+  hardware.nvidia.prime = {
+    offload = {
       enable = true;
       enableOffloadCmd = true;
-      };
+    };
 
     # integrated
     # intelBusId = "PCI:0:0:0";
     amdgpuBusId = "PCI:6:0:0";
-    
+
     # dedicated
     nvidiaBusId = "PCI:1:0:0";
-    };
-    # for gaming mode
-      
-    specialisation = {
-      gaming-time.configuration = {
+  };
+  # for gaming mode
 
-        hardware.nvidia = {
-          prime.sync.enable = lib.mkForce true;
-          prime.offload = {
-            enable = lib.mkForce false;
-            enableOffloadCmd = lib.mkForce false;
-          };
+  specialisation = {
+    gaming-time.configuration = {
+
+      hardware.nvidia = {
+        prime.sync.enable = lib.mkForce true;
+        prime.offload = {
+          enable = lib.mkForce false;
+          enableOffloadCmd = lib.mkForce false;
         };
-
       };
+
     };
-
-
+  };
   #}
+  programs.nix-ld.enable = true;
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
   programs.zsh.enable = true;
@@ -73,7 +73,7 @@
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-    networking.firewall.checkReversePath = false;
+  networking.firewall.checkReversePath = false;
   # Enable networking
   networking.networkmanager.enable = true;
 
@@ -162,9 +162,9 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  # for install steam 
+  # for install steam
   programs.steam.enable = true;
-  # for upscalling 
+  # for upscalling
   programs.steam.gamescopeSession.enable = true;
   # for gamemood
   programs.gamemode.enable = true;
@@ -190,7 +190,7 @@
     starship
     python3
     inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
-    pyright 
+    pyright
     proton-vpn
     openvpn
     mangohud
@@ -326,23 +326,42 @@
     onlyoffice-desktopeditors
     golangci-lint
     lmstudio
-     
+    prettier
+    kdePackages.kclock
+    statix
+    gotools
+    evcxr
+    rust-analyzer
+    baobab
+    cargo
   ];
 
   fonts.packages = with pkgs; [
-    nerd-fonts.jetbrains-mono
+    nerd-fonts.noto
+    noto-fonts
+    adwaita-fonts
   ];
+  fonts.fontconfig.defaultFonts = {
+    sansSerif = [
+      "Noto Sans"
+      "Noto Sans Arabic"
+    ];
+    serif = [
+      "Noto Serif"
+      "Noto Naskh Arabic"
+    ];
+  };
 
   # enable direnv
   programs.direnv.enable = true;
 
   # make nvim a default
-    programs.neovim = {
+  programs.neovim = {
     enable = true;
     defaultEditor = true;
     viAlias = true;
     vimAlias = true;
-   };
+  };
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
