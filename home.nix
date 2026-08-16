@@ -9,7 +9,7 @@
 
     ./terminal/zsh.nix
     ./terminal/nvim.nix
-    ./waydroid.nix
+
     lazyvim.homeManagerModules.default
   ];
   programs.lazyvim.enable = true;

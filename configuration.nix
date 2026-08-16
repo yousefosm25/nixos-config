@@ -12,6 +12,7 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    ./waydroid.nix
   ];
 
   # Bootloader.
@@ -47,6 +48,7 @@
     # dedicated
     nvidiaBusId = "PCI:1:0:0";
   };
+
   # for gaming mode
 
   specialisation = {
@@ -121,6 +123,8 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
+
+  nix.settings.max-substitution-jobs = 2;
 
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
@@ -334,6 +338,8 @@
     rust-analyzer
     baobab
     cargo
+    android-tools
+    exercism
   ];
 
   fonts.packages = with pkgs; [
@@ -388,4 +394,12 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "26.05"; # Did you read the comment?
+  #To have NixOS automatically clean up old builds/generations
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 10d";
+  };
+
+  nix.settings.auto-optimise-store = true;
 }
