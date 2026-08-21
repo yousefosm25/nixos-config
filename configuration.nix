@@ -340,6 +340,7 @@
     cargo
     android-tools
     exercism
+    nil
   ];
 
   fonts.packages = with pkgs; [
@@ -347,17 +348,7 @@
     noto-fonts
     adwaita-fonts
   ];
-  fonts.fontconfig.defaultFonts = {
-    sansSerif = [
-      "Noto Sans"
-      "Noto Sans Arabic"
-    ];
-    serif = [
-      "Noto Serif"
-      "Noto Naskh Arabic"
-    ];
-  };
-
+  fonts.fontconfig.enable = true;
   # enable direnv
   programs.direnv.enable = true;
 
