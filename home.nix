@@ -6,7 +6,7 @@
 }:
 {
   imports = [
-
+    ./packages.nix
     ./terminal/zsh.nix
     ./terminal/nvim.nix
 

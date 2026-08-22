@@ -2,7 +2,6 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 {
-  config,
   pkgs,
   inputs,
   lib,
@@ -153,10 +152,6 @@
       "networkmanager"
       "wheel"
     ];
-    packages = with pkgs; [
-      kdePackages.kate
-      #  thunderbird
-    ];
     shell = pkgs.zsh;
   };
 
@@ -177,45 +172,11 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    wget
-    git
-    ghostty
     zsh
-    direnv
-    nixfmt
-    tree
-    fzf
-    fastfetch
-    nixd
-    gcc
-    gnumake
-    nodejs
     neovim
-    starship
     python3
-    inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
-    pyright
-    proton-vpn
-    openvpn
-    mangohud
-    heroic
-    vlc
-    corefonts
-    zoom-us
-    telegram-desktop
-    spotify
-    btop
     nodejs
-    vscode-langservers-extracted
-    typescript-language-server
-    vtsls
-    tailwindcss-language-server
-    biome
     go
-    nixd
-    alejandra
-    vue-language-server
-    angular-language-server
     SDL
     SDL2
     SDL2_image
@@ -327,19 +288,8 @@
     xkeyboard-config
     xz
     zlib
-    onlyoffice-desktopeditors
-    golangci-lint
-    lmstudio
-    prettier
-    kdePackages.kclock
-    statix
-    gotools
-    evcxr
     rust-analyzer
-    baobab
     cargo
-    android-tools
-    exercism
     nil
   ];
 
@@ -349,6 +299,7 @@
     adwaita-fonts
   ];
   fonts.fontconfig.enable = true;
+
   # enable direnv
   programs.direnv.enable = true;
 
