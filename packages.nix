@@ -44,5 +44,8 @@
     baobab
     android-tools
     exercism
+    arduino-cli
+    arduino-ide
+    godot
   ];
 }

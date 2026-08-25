@@ -9,7 +9,9 @@
     ./packages.nix
     ./terminal/zsh.nix
     ./terminal/nvim.nix
-
+    ./arduino-fhs.nix
+    ./python.nix
+    ./obs.nix
     lazyvim.homeManagerModules.default
   ];
   programs.lazyvim.enable = true;

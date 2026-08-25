@@ -151,6 +151,7 @@
     extraGroups = [
       "networkmanager"
       "wheel"
+      "dialout"
     ];
     shell = pkgs.zsh;
   };
@@ -177,6 +178,8 @@
     python3
     nodejs
     go
+    vue-language-server
+    angular-language-server
     SDL
     SDL2
     SDL2_image
