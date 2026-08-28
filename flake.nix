@@ -3,9 +3,11 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
+
     catppuccin.url = "github:catppuccin/nix/release-26.05";
+
     lazyvim.url = "github:pfassina/lazyvim-nix";
-    #nvf-config
+
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -15,6 +17,13 @@
       url = "github:youwen5/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
+
   };
 
   outputs =
@@ -24,6 +33,7 @@
       zen-browser,
       catppuccin,
       lazyvim,
+      plasma-manager,
       ...
     }@inputs:
     {
@@ -42,6 +52,7 @@
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = { inherit zen-browser lazyvim; };
             home-manager.users.yousef = import ./home.nix;
+            home-manager.sharedModules = [ plasma-manager.homeManagerModules.plasma-manager ];
           }
         ];
       };

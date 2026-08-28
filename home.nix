@@ -12,6 +12,7 @@
     ./arduino-fhs.nix
     ./python.nix
     ./obs.nix
+    ./plasma.nix
     lazyvim.homeManagerModules.default
   ];
   programs.lazyvim.enable = true;

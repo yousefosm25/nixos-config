@@ -47,5 +47,6 @@
     arduino-cli
     arduino-ide
     godot
+    code-cursor
   ];
 }
