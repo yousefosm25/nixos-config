@@ -13,10 +13,11 @@
     ./python.nix
     ./obs.nix
     ./plasma.nix
+    ./ghostty.nix
+    ./tomat.nix
     lazyvim.homeManagerModules.default
   ];
   programs.lazyvim.enable = true;
-
   home.username = "yousef";
   home.homeDirectory = "/home/yousef";
   home.stateVersion = "26.05";

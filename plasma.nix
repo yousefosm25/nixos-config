@@ -1,27 +1,69 @@
-{ pkgs, ... }:
+{ pkgs, better-blur-dx, ... }:
 {
-  home.packages = [ pkgs.kdePackages.kwin-effects-forceblur ];
-
-  programs.plasma = {
-    enable = true;
-    configFile."kwinrc" = {
-      # built-in blur (transparent windows, panels, menus)
-      Plugins.blurEnabled = true;
-      "Effect-blur" = {
-        BlurStrength = 10; # 1-15
-        NoiseStrength = 3; # 0-14
-      };
-
-      # Better Blur: force blur on all windows
-      Plugins.forceblurEnabled = true;
-      "Effect-forceblur" = {
-        BlurStrength = 10;
-        NoiseStrength = 3;
-        WindowClasses = ""; # empty list of classes...
-        BlurMatching = false; # ...treated as blacklist = blur everything
-        TopCornerRadius = 12; # optional rounded corners
-        BottomCornerRadius = 12;
-      };
-    };
-  };
+  # home.packages = [
+  #   better-blur-dx.packages.${pkgs.stdenv.hostPlatform.system}.default # Wayland
+  # ];
+  #
+  # programs.plasma = {
+  #   enable = true;
+  # window-rules = [
+  #   {
+  #       description = "translucency for blur on all windows";
+  #       match = {
+  #         window-class = {
+  #           value = ".*";
+  #           type = "regex";
+  #         };
+  #         window-types = [ "normal" ];
+  #       };
+  #       apply = {
+  #         opacityactive = {
+  #           value = 95;
+  #           apply = "force";
+  #         };
+  #         opacityinactive = {
+  #           value = 80;
+  #           apply = "force";
+  #         };
+  #       };
+  #     }
+  #     {
+  #       description = "zen already has its own transparency";
+  #       match = {
+  #         window-class = {
+  #           value = "zen";
+  #           type = "substring";
+  #         };
+  #       };
+  #       apply = {
+  #         opacityactive = {
+  #           value = 100;
+  #           apply = "force";
+  #         };
+  #         opacityinactive = {
+  #           value = 100;
+  #           apply = "force";
+  #         };
+  #       };
+  # }
+  # ];
+  # #
+  # configFile."kwinrc" = {
+  #   # stock blur must stay off - it conflicts with Better Blur DX
+  #   Plugins.blurEnabled = false;
+  #   Plugins.better_blur_dxEnabled = true;
+  #   "Effect-better-blur-dx" = {
+  #     BlurStrength = 15; # 1-15
+  #     NoiseStrength = 3;
+  #     # empty class list + "blur non-matching" = blur every window
+  #     WindowClasses = "";
+  #     BlurMatching = false;
+  #     BlurNonMatching = true;
+  #     BlurDecorations = true;
+  #     CornerRadius = 12.0; # rounded corners (single value now, not top/bottom)
+  #     BlurMenus = true; # optional: also blur menus
+  #     BlurDocks = true; # optional: also blur panels
+  #   };
+  # };
+  # };
 }

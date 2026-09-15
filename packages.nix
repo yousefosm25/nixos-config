@@ -48,5 +48,9 @@
     arduino-ide
     godot
     code-cursor
+    tomat
+    kdePackages.plasma-browser-integration
+    xournalpp
+    unrar
   ];
 }

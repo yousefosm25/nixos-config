@@ -24,6 +24,11 @@
       inputs.home-manager.follows = "home-manager";
     };
 
+    better-blur-dx = {
+      url = "github:xarblu/kwin-effects-better-blur-dx";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
   outputs =
@@ -34,6 +39,7 @@
       catppuccin,
       lazyvim,
       plasma-manager,
+      better-blur-dx,
       ...
     }@inputs:
     {
@@ -50,9 +56,9 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = { inherit zen-browser lazyvim; };
+            home-manager.extraSpecialArgs = { inherit zen-browser lazyvim better-blur-dx; };
             home-manager.users.yousef = import ./home.nix;
-            home-manager.sharedModules = [ plasma-manager.homeManagerModules.plasma-manager ];
+            home-manager.sharedModules = [ plasma-manager.homeModules.plasma-manager ];
           }
         ];
       };
