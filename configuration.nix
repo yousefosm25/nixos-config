@@ -3,7 +3,6 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 {
   pkgs,
-  inputs,
   lib,
   config,
   ...
@@ -14,6 +13,7 @@
     ./hardware-configuration.nix
     ./waydroid.nix
     ./printing.nix
+    ./virtualisation.nix
   ];
 
   # Bootloader.
@@ -305,6 +305,7 @@
     rust-analyzer
     cargo
     nil
+    black
   ];
 
   fonts.packages = with pkgs; [

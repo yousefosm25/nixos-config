@@ -52,5 +52,6 @@
     kdePackages.plasma-browser-integration
     xournalpp
     unrar
+    brave
   ];
 }
