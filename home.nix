@@ -15,6 +15,7 @@
     ./plasma.nix
     ./ghostty.nix
     ./tomat.nix
+    ./zed.nix
     lazyvim.homeManagerModules.default
   ];
   programs.lazyvim.enable = true;

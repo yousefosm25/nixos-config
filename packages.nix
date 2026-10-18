@@ -20,7 +20,6 @@
     mangohud
     heroic
     vlc
-    corefonts
     zoom-us
     telegram-desktop
     spotify

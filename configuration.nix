@@ -88,7 +88,7 @@
   networking.firewall.checkReversePath = false;
   # Enable networking
   networking.networkmanager.enable = true;
-
+  networking.networkmanager.plugins = with pkgs; [ networkmanager-openvpn ];
   #Enable Bluetooth
   hardware.bluetooth = {
     enable = true;
@@ -313,9 +313,14 @@
     noto-fonts
     adwaita-fonts
     vista-fonts
-    corefonts
+    liberation_ttf
   ];
   fonts.fontconfig.enable = true;
+
+  fonts.fontconfig.defaultFonts.sansSerif = [
+    "Noto Sans"
+    "Noto Sans Arabic"
+  ];
 
   # enable direnv
   programs.direnv.enable = true;
