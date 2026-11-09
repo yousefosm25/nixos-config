@@ -43,14 +43,14 @@
     baobab
     android-tools
     exercism
-    arduino-cli
-    arduino-ide
-    godot
+    #arduino-cli
+    #arduino-ide
+    #godot
     code-cursor
     tomat
     kdePackages.plasma-browser-integration
     xournalpp
     unrar
-    brave
+    shfmt
   ];
 }

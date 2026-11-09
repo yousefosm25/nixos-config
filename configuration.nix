@@ -14,6 +14,7 @@
     ./waydroid.nix
     ./printing.nix
     ./virtualisation.nix
+    ./hyprland.nix
   ];
 
   # Bootloader.
@@ -77,7 +78,7 @@
   #}
   programs.nix-ld.enable = true;
   # Use latest kernel.
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.pkgs.linuxPackages;
   programs.zsh.enable = true;
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -224,13 +225,11 @@
     gst_all_1.gst-plugins-base
     gst_all_1.gst-plugins-ugly
     gst_all_1.gstreamer
-    gtk2
     harfbuzz
     icu
     keyutils.lib
     libGL
     libGLU
-    libappindicator-gtk2
     libcaca
     libcanberra
     libcap
@@ -244,7 +243,6 @@
     libjpeg
     libmikmod
     libogg
-    libpng12
     libpulseaudio
     librsvg
     libsamplerate

@@ -2,14 +2,14 @@
   description = "yousef's NixOS configuration";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    catppuccin.url = "github:catppuccin/nix/release-26.05";
+    catppuccin.url = "github:catppuccin/nix";
 
     lazyvim.url = "github:pfassina/lazyvim-nix";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-26.05";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -58,7 +58,10 @@
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = { inherit zen-browser lazyvim better-blur-dx; };
             home-manager.users.yousef = import ./home.nix;
-            home-manager.sharedModules = [ plasma-manager.homeModules.plasma-manager ];
+            home-manager.sharedModules = [
+              plasma-manager.homeModules.plasma-manager
+              catppuccin.homeModules.catppuccin
+            ];
           }
         ];
       };

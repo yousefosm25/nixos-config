@@ -1,6 +1,4 @@
 {
-  config,
-  pkgs,
   lazyvim,
   ...
 }:
@@ -9,13 +7,14 @@
     ./packages.nix
     ./terminal/zsh.nix
     ./terminal/nvim.nix
-    ./arduino-fhs.nix
+    #./arduino-fhs.nix
     ./python.nix
     ./obs.nix
     ./plasma.nix
     ./ghostty.nix
     ./tomat.nix
     ./zed.nix
+    ./hyperdot.nix
     lazyvim.homeManagerModules.default
   ];
   programs.lazyvim.enable = true;

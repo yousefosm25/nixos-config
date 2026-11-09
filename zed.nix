@@ -112,5 +112,56 @@
         };
       };
     };
+    userTasks = [
+      {
+        label = "Run Python file";
+        command = "python3";
+        args = [ "$ZED_FILE" ];
+        reveal = "always"; # always show the terminal panel
+        allow_concurrent_runs = false;
+      }
+      {
+        label = "Run Node file";
+        command = "node";
+        args = [ "$ZED_FILE" ];
+        reveal = "always";
+      }
+      {
+        label = "Run Go file";
+        command = "go";
+        args = [
+          "run"
+          "$ZED_FILE"
+        ];
+        reveal = "always";
+      }
+      {
+        label = "Cargo run"; # Rust: runs the whole project
+        command = "cargo";
+        args = [ "run" ];
+        cwd = "$ZED_WORKTREE_ROOT";
+        reveal = "always";
+      }
+      {
+        label = "Compile and run C";
+        command = "bash";
+        args = [
+          "-c"
+          "gcc \"$ZED_FILE\" -o \"/tmp/$ZED_STEM\" && \"/tmp/$ZED_STEM\""
+        ];
+        reveal = "always";
+      }
+    ];
+
+    # Keys: F5 repeats the last task, F6 opens a picker to choose one
+    userKeymaps = [
+      {
+        context = "Workspace";
+        bindings = {
+          "f5" = "task::Rerun";
+          "f6" = "task::Spawn";
+        };
+      }
+    ];
   };
 }
