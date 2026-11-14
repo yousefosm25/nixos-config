@@ -15,6 +15,7 @@
     ./tomat.nix
     ./zed.nix
     ./hyperdot.nix
+    ./yazi.nix
     lazyvim.homeManagerModules.default
   ];
   programs.lazyvim.enable = true;

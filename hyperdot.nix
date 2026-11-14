@@ -24,18 +24,51 @@ let
   menu = "hyprlauncher";
 
   # Helpers. A bind is the Lua call hl.bind(keys, dispatcher [, options]).
-  lua = lib.generators.mkLuaInline;                 # raw Lua expression
-  run = cmd: lua ''hl.dsp.exec_cmd("${cmd}")'';     # run a shell command (no double quotes inside)
-  mkBind = keys: dsp: { _args = [ keys dsp ]; };
-  mkBindWith = keys: dsp: opts: { _args = [ keys dsp opts ]; };
+  lua = lib.generators.mkLuaInline; # raw Lua expression
+  run = cmd: lua ''hl.dsp.exec_cmd("${cmd}")''; # run a shell command (no double quotes inside)
+  mkBind = keys: dsp: {
+    _args = [
+      keys
+      dsp
+    ];
+  };
+  mkBindWith = keys: dsp: opts: {
+    _args = [
+      keys
+      dsp
+      opts
+    ];
+  };
 
   # Options for volume/brightness/media keys (work on the lock screen)
-  repeatOpts = { locked = true; repeating = true; };
-  lockedOpts = { locked = true; };
+  repeatOpts = {
+    locked = true;
+    repeating = true;
+  };
+  lockedOpts = {
+    locked = true;
+  };
 
   # Shortcuts for hl.curve / hl.animation
-  bezier = name: p1: p2: { _args = [ name { type = "bezier"; points = [ p1 p2 ]; } ]; };
-  anim = leaf: attrs: { inherit leaf; enabled = true; } // attrs;
+  bezier = name: p1: p2: {
+    _args = [
+      name
+      {
+        type = "bezier";
+        points = [
+          p1
+          p2
+        ];
+      }
+    ];
+  };
+  anim =
+    leaf: attrs:
+    {
+      inherit leaf;
+      enabled = true;
+    }
+    // attrs;
 in
 {
   assertions = [
@@ -47,9 +80,9 @@ in
 
   wayland.windowManager.hyprland = {
     enable = true;
-    package = null;          # Hyprland itself is installed by hyprland.nix
+    package = null; # Hyprland itself is installed by hyprland.nix
     portalPackage = null;
-    systemd.enable = false;  # UWSM manages the session, so Home Manager's systemd hook must be off
+    systemd.enable = false; # UWSM manages the session, so Home Manager's systemd hook must be off
     configType = "lua";
 
     settings = {
@@ -63,8 +96,18 @@ in
 
       # ---- Environment variables ----
       env = [
-        { _args = [ "XCURSOR_SIZE" "24" ]; }
-        { _args = [ "HYPRCURSOR_SIZE" "24" ]; }
+        {
+          _args = [
+            "XCURSOR_SIZE"
+            "24"
+          ];
+        }
+        {
+          _args = [
+            "HYPRCURSOR_SIZE"
+            "24"
+          ];
+        }
       ];
 
       # ---- Look and feel, input, layouts ----
@@ -74,10 +117,16 @@ in
           gaps_out = 20;
           border_size = 2;
           col = {
-            active_border = { colors = [ "rgba(33ccffee)" "rgba(00ff99ee)" ]; angle = 45; };
+            active_border = {
+              colors = [
+                "rgba(33ccffee)"
+                "rgba(00ff99ee)"
+              ];
+              angle = 45;
+            };
             inactive_border = "rgba(595959aa)";
           };
-          resize_on_border = false;  # true: resize windows by dragging borders and gaps
+          resize_on_border = false; # true: resize windows by dragging borders and gaps
           allow_tearing = false;
           layout = "dwindle";
         };
@@ -108,21 +157,21 @@ in
         scrolling.fullscreen_on_one_column = true;
 
         misc = {
-          force_default_wallpaper = -1;   # 0 or 1 turns off the anime mascot wallpapers
+          force_default_wallpaper = -1; # 0 or 1 turns off the anime mascot wallpapers
           disable_hyprland_logo = false;
         };
 
         layers.allow_new_top_layers_over_existing_fullscreen = true;
 
         input = {
-          kb_layout = "us";               # two layouts: "us,ara" plus kb_options = "grp:alt_shift_toggle"
+          kb_layout = "us,ara"; # two layouts: "us,ara" plus kb_options = "grp:alt_shift_toggle"
           kb_variant = "";
           kb_model = "";
-          kb_options = "";
+          kb_options = "grp:win_space_toggle";
           kb_rules = "";
           follow_mouse = 1;
-          sensitivity = 0;                # -1.0 to 1.0, 0 means no change
-          touchpad.natural_scroll = false;
+          sensitivity = 0; # -1.0 to 1.0, 0 means no change
+          touchpad.natural_scroll = true;
         };
       };
 
@@ -139,39 +188,109 @@ in
         (bezier "linear" [ 0 0 ] [ 1 1 ])
         (bezier "almostLinear" [ 0.5 0.5 ] [ 0.75 1 ])
         (bezier "quick" [ 0.15 0 ] [ 0.1 1 ])
-        { _args = [ "easy" { type = "spring"; mass = 1; stiffness = 238.1191; damping = 24.21279333; } ]; }
+        {
+          _args = [
+            "easy"
+            {
+              type = "spring";
+              mass = 1;
+              stiffness = 238.1191;
+              damping = 24.21279333;
+            }
+          ];
+        }
       ];
 
       animation = [
-        (anim "global" { speed = 10; bezier = "default"; })
-        (anim "border" { speed = 5.39; bezier = "easeOutQuint"; })
-        (anim "windows" { speed = 4.79; spring = "easy"; })
-        (anim "windowsIn" { speed = 4.1; spring = "easy"; style = "popin 87%"; })
-        (anim "windowsOut" { speed = 1.49; bezier = "linear"; style = "popin 87%"; })
-        (anim "fadeIn" { speed = 1.73; bezier = "almostLinear"; })
-        (anim "fadeOut" { speed = 1.46; bezier = "almostLinear"; })
-        (anim "fade" { speed = 3.03; bezier = "quick"; })
-        (anim "layers" { speed = 3.81; bezier = "easeOutQuint"; })
-        (anim "layersIn" { speed = 4; bezier = "easeOutQuint"; style = "fade"; })
-        (anim "layersOut" { speed = 1.5; bezier = "linear"; style = "fade"; })
-        (anim "fadeLayersIn" { speed = 1.79; bezier = "almostLinear"; })
-        (anim "fadeLayersOut" { speed = 1.39; bezier = "almostLinear"; })
-        (anim "workspaces" { speed = 1.94; bezier = "almostLinear"; style = "fade"; })
-        (anim "workspacesIn" { speed = 1.21; bezier = "almostLinear"; style = "fade"; })
-        (anim "workspacesOut" { speed = 1.94; bezier = "almostLinear"; style = "fade"; })
-        (anim "zoomFactor" { speed = 7; bezier = "quick"; })
+        (anim "global" {
+          speed = 10;
+          bezier = "default";
+        })
+        (anim "border" {
+          speed = 5.39;
+          bezier = "easeOutQuint";
+        })
+        (anim "windows" {
+          speed = 4.79;
+          spring = "easy";
+        })
+        (anim "windowsIn" {
+          speed = 4.1;
+          spring = "easy";
+          style = "popin 87%";
+        })
+        (anim "windowsOut" {
+          speed = 1.49;
+          bezier = "linear";
+          style = "popin 87%";
+        })
+        (anim "fadeIn" {
+          speed = 1.73;
+          bezier = "almostLinear";
+        })
+        (anim "fadeOut" {
+          speed = 1.46;
+          bezier = "almostLinear";
+        })
+        (anim "fade" {
+          speed = 3.03;
+          bezier = "quick";
+        })
+        (anim "layers" {
+          speed = 3.81;
+          bezier = "easeOutQuint";
+        })
+        (anim "layersIn" {
+          speed = 4;
+          bezier = "easeOutQuint";
+          style = "fade";
+        })
+        (anim "layersOut" {
+          speed = 1.5;
+          bezier = "linear";
+          style = "fade";
+        })
+        (anim "fadeLayersIn" {
+          speed = 1.79;
+          bezier = "almostLinear";
+        })
+        (anim "fadeLayersOut" {
+          speed = 1.39;
+          bezier = "almostLinear";
+        })
+        (anim "workspaces" {
+          speed = 1.94;
+          bezier = "almostLinear";
+          style = "fade";
+        })
+        (anim "workspacesIn" {
+          speed = 1.21;
+          bezier = "almostLinear";
+          style = "fade";
+        })
+        (anim "workspacesOut" {
+          speed = 1.94;
+          bezier = "almostLinear";
+          style = "fade";
+        })
+        (anim "zoomFactor" {
+          speed = 7;
+          bezier = "quick";
+        })
       ];
 
       # ---- Keybindings ----
       bind = [
-        (mkBind "${mod} + Q" (run terminal))
-        (mkBind "${mod} + C" (lua "hl.dsp.window.close()"))
-        (mkBind "${mod} + M" (run "command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
+        (mkBind "${mod} + Return" (run terminal))
+        (mkBind "${mod} + Q" (lua "hl.dsp.window.close()"))
+        (mkBind "${mod} + M" (
+          run "command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"
+        ))
         (mkBind "${mod} + E" (run fileManager))
         (mkBind "${mod} + V" (lua ''hl.dsp.window.float({ action = "toggle" })''))
         (mkBind "${mod} + R" (run menu))
         (mkBind "${mod} + P" (lua "hl.dsp.window.pseudo()"))
-        (mkBind "${mod} + J" (lua ''hl.dsp.layout("togglesplit")''))  # dwindle only
+        (mkBind "${mod} + J" (lua ''hl.dsp.layout("togglesplit")'')) # dwindle only
 
         # Reload this config after a rebuild
         (mkBind "${mod} + SHIFT + R" (run "hyprctl reload config-only"))
@@ -195,7 +314,9 @@ in
         (mkBindWith "${mod} + mouse:273" (lua "hl.dsp.window.resize()") { mouse = true; })
 
         # Laptop multimedia keys for volume and brightness
-        (mkBindWith "XF86AudioRaiseVolume" (run "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+") repeatOpts)
+        (mkBindWith "XF86AudioRaiseVolume" (run "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+")
+          repeatOpts
+        )
         (mkBindWith "XF86AudioLowerVolume" (run "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-") repeatOpts)
         (mkBindWith "XF86AudioMute" (run "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle") repeatOpts)
         (mkBindWith "XF86AudioMicMute" (run "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle") repeatOpts)
@@ -209,9 +330,12 @@ in
         (mkBindWith "XF86AudioPrev" (run "playerctl previous") lockedOpts)
       ]
       # Switch workspaces with mod + [0-9], move the active window with mod + SHIFT + [0-9]
-      ++ lib.concatMap (i:
-        let key = toString (lib.mod i 10);  # workspace 10 sits on key 0
-        in [
+      ++ lib.concatMap (
+        i:
+        let
+          key = toString (lib.mod i 10); # workspace 10 sits on key 0
+        in
+        [
           (mkBind "${mod} + ${key}" (lua "hl.dsp.focus({ workspace = ${toString i} })"))
           (mkBind "${mod} + SHIFT + ${key}" (lua "hl.dsp.window.move({ workspace = ${toString i} })"))
         ]

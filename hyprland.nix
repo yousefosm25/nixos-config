@@ -12,7 +12,7 @@
 {
   programs.hyprland = {
     enable = true;
-    withUWSM = true;        # recommended session manager; adds "Hyprland (uwsm-managed)" to SDDM
+    withUWSM = true; # recommended session manager; adds "Hyprland (uwsm-managed)" to SDDM
     xwayland.enable = true; # lets X11 apps run (already the default, kept explicit)
   };
 
@@ -21,13 +21,16 @@
 
   # Only the tools Hyprland's default config calls, to keep the download small
   environment.systemPackages = with pkgs; [
-    kitty         # SUPER+Q  terminal
-    hyprlauncher  # SUPER+R  app launcher
+    kitty # SUPER+Q  terminal
+    hyprlauncher # SUPER+R  app launcher
     brightnessctl # brightness keys
-    playerctl     # media keys
-    wl-clipboard  # wl-copy / wl-paste
-    grim          # screenshots
-    slurp         # pick a screen region for grim
+    playerctl # media keys
+    wl-clipboard # wl-copy / wl-paste
+    grim # screenshots
+    slurp # pick a screen region for grim
+    waypaper
+    waybar
+    hyprpaper
   ];
 
   # brightnessctl needs the "video" group to change brightness without sudo
